@@ -1,0 +1,7 @@
+name: Forja
+main: Unknown\Forja\Forja
+version: 1.0.0
+api: 5.0.0
+author: UnknownMaker-dev
+src-namespace-prefix: Unknown\Forja
+description: Biblioteca de formulários, comandos, configs, dados, regiões, economia e hologramas para plugins PocketMine-MP 5.
