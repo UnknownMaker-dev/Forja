@@ -35,7 +35,7 @@ declarando `depend: [Forja]`, sem embutir nada.
 1. Baixe o `.phar` da Forja (ou a pasta do código) e coloque em `plugins/`.
    Para usar a pasta do código diretamente é preciso ter o plugin
    [DevTools](https://github.com/pmmp/DevTools) instalado.
-2. Reinicie o servidor. O console deve mostrar `Enabling Forja v1.0.0`.
+2. Reinicie o servidor. O console deve mostrar `Enabling Forja v<versão>`.
 
 A Forja não tem comandos, permissões nem arquivos de configuração próprios.
 
