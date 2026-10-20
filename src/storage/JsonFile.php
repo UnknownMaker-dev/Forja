@@ -66,10 +66,12 @@ final class JsonFile {
 	 * @return array<mixed> conteúdo do arquivo; [] se não existir ou estiver corrompido
 	 */
 	public static function read(string $path, ?Logger $logger = null) : array {
+		$logger ??= GlobalLogger::get();
+		// Uma gravação assíncrona ainda pendente deixaria a leitura com conteúdo antigo.
+		self::waitPending($path, $logger);
 		if(!file_exists($path)){
 			return [];
 		}
-		$logger ??= GlobalLogger::get();
 
 		try{
 			$contents = @file_get_contents($path);

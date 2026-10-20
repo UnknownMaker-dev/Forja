@@ -70,6 +70,10 @@ final class Inventories {
 			return 0;
 		}
 		$position = $player->getPosition();
+		if(!$position->isValid()){
+			\GlobalLogger::get()->warning("Não foi possível dropar itens que não couberam no inventário de " . $player->getName() . ": o mundo do jogador não está carregado.");
+			return 0;
+		}
 		$world = $position->getWorld();
 		foreach($leftovers as $item){
 			if($item->isNull()){
