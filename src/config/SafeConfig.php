@@ -62,7 +62,7 @@ final class SafeConfig {
 			$data = (new Config($path, Config::DETECT))->getAll();
 		}catch(Exception $e){
 			$logger->error("[$sourceName] não foi possível ler o arquivo: " . $e->getMessage() . ". O arquivo não foi alterado; usando os valores padrão até ser corrigido.");
-			$data = [];
+			return ConfigView::fromArray([], $logger, $sourceName, true);
 		}
 		return ConfigView::fromArray($data, $logger, $sourceName);
 	}

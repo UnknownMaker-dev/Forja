@@ -188,7 +188,10 @@ foreach($config->section("lojas")->keys() as $id){ /* ... */ }
 Valor do tipo errado ou fora da faixa registra um aviso como
 `[config.yml] chave 'loja.limite': esperado int entre 1 e 64, recebido "abc"; usando 10` e usa o
 padrão. YAML inválido registra o erro (arquivo e motivo), não altera o arquivo e todos os getters
-devolvem o padrão. `SafeConfig::fromFile($caminho, $logger)` e `ConfigView::fromArray($array, $logger, "nome")`
+devolvem o padrão. Nesse caso `$config->hasLoadError()` devolve `true`: se o plugin regrava esse
+arquivo (por exemplo, a partir de um editor no jogo), não grave enquanto ele estiver quebrado, senão
+os dados do arquivo seriam substituídos por uma view vazia.
+`SafeConfig::fromFile($caminho, $logger)` e `ConfigView::fromArray($array, $logger, "nome")`
 servem para outros arquivos.
 
 ### storage — JSON seguro

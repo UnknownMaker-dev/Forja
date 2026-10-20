@@ -45,15 +45,25 @@ final class ConfigView {
 		private array $data,
 		private Logger $logger,
 		private string $sourceName,
-		private string $prefix
+		private string $prefix,
+		private bool $loadError = false
 	) {}
 
 	/**
 	 * @param array<mixed> $data
 	 * @param string $sourceName nome mostrado nos avisos (ex.: "config.yml")
+	 * @param bool $loadError true quando o arquivo existia mas não pôde ser lido
 	 */
-	public static function fromArray(array $data, Logger $logger, string $sourceName) : self {
-		return new self($data, $logger, $sourceName, "");
+	public static function fromArray(array $data, Logger $logger, string $sourceName, bool $loadError = false) : self {
+		return new self($data, $logger, $sourceName, "", $loadError);
+	}
+
+	/**
+	 * True se o arquivo existia mas não pôde ser lido (YAML inválido, sem permissão...).
+	 * Nesse caso a view está vazia: não grave dados derivados dela por cima do arquivo.
+	 */
+	public function hasLoadError() : bool {
+		return $this->loadError;
 	}
 
 	public function int(string $path, int $default, ?int $min = null, ?int $max = null) : int {
@@ -189,7 +199,7 @@ final class ConfigView {
 			$this->warn($path, "seção", $value, "seção vazia");
 			$value = [];
 		}
-		return new self($value, $this->logger, $this->sourceName, $this->prefix . $path . ".");
+		return new self($value, $this->logger, $this->sourceName, $this->prefix . $path . ".", $this->loadError);
 	}
 
 	/**
